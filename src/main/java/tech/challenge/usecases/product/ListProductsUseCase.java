@@ -14,6 +14,6 @@ public class ListProductsUseCase {
     private final ProductGatewayInterface productGatewayInterface;
 
     public List<Product> execute() {
-        return productGatewayInterface.listAll();
+        return productGatewayInterface.findAll();
     }
 }

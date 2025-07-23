@@ -1,9 +1,6 @@
 package tech.challenge.commons.dao;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -19,21 +16,22 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "tb_customer")
-public class CustomerDAO {
+@Table(name = "tb_order_item")
+public class OrderItemDAO {
     @Id
     @UuidGenerator
     @Column(name = "id", updatable = false)
     private UUID id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "quantity", nullable = false)
+    private Integer quantity;
 
-    @Column(name = "email", nullable = false, unique = true)
-    private String email;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "product_id", nullable = false)
+    private ProductDAO product;
 
-    @Column(name = "cpf", length = 11, nullable = false, unique = true)
-    private String cpf;
+    @Column(name = "order_id", nullable = false)
+    private UUID orderId;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

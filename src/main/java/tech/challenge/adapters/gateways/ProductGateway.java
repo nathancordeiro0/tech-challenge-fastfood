@@ -19,15 +19,22 @@ public class ProductGateway implements ProductGatewayInterface {
     private final ProductMapper mapper;
 
     @Override
-    public List<Product> listAll() {
+    public List<Product> findAll() {
         return productDataSource.findAll()
                 .stream()
                 .map(mapper::fromDaoToEntity)
                 .toList();
     }
 
-    public Product findByIdOrThrowNotFound(UUID id) {
+    @Override
+    public Product findById(UUID id) {
         return mapper.fromDaoToEntity(productDataSource.findById(id)
+                .orElseThrow(() -> new NotFoundException("Product not Found")));
+    }
+
+    @Override
+    public Product findByOrderItemId(UUID id) {
+        return mapper.fromDaoToEntity(productDataSource.findByOrderItemId(id)
                 .orElseThrow(() -> new NotFoundException("Product not Found")));
     }
 
@@ -40,14 +47,14 @@ public class ProductGateway implements ProductGatewayInterface {
 
     @Override
     public void delete(UUID id) {
-        var productToDelete = findByIdOrThrowNotFound(id);
+        var productToDelete = findById(id);
 
         productDataSource.delete(mapper.toDAO(productToDelete));
     }
 
     @Override
     public void update(Product entity) {
-        findByIdOrThrowNotFound(entity.getId());
+        findById(entity.getId());
 
         productDataSource.save(mapper.toDAO(entity));
     }

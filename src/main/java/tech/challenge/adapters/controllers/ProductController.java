@@ -28,7 +28,7 @@ public class ProductController {
     private final ProductMapper mapper;
 
     @GetMapping
-    public ResponseEntity<List<ProductResponseV1>> listAll(@RequestParam(required = false) ProductCategory category) {
+    public ResponseEntity<List<ProductResponseV1>> listAll(@RequestParam ProductCategory category) {
         var productsList = listProducts.execute()
                 .stream()
                 .filter(cat -> cat.getCategory().equals(category))
