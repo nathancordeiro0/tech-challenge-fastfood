@@ -1,5 +1,6 @@
 package tech.challenge.commons.dto.request;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,10 +15,21 @@ import java.util.UUID;
 @Builder
 @ToString
 public class UpdateProductRequestV1 {
+    @NotBlank(message = "The field 'id' cannot be null")
     private UUID id;
+
+    @NotBlank(message = "The field 'name' is required")
     private String name;
+
+    @NotBlank(message = "The field 'description' is required")
     private String description;
-    private BigDecimal price;
-    private String imagePath;
+
+    @NotBlank(message = "The field 'category' is required")
     private ProductCategory category;
+
+    @NotBlank(message = "The field 'price' is required")
+    private BigDecimal price;
+
+    private String imagePath;
+
 }

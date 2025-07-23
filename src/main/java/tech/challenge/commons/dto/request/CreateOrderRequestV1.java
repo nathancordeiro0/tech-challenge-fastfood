@@ -1,5 +1,6 @@
 package tech.challenge.commons.dto.request;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,5 +15,7 @@ import java.util.UUID;
 @ToString
 public class CreateOrderRequestV1 {
     private UUID customerId;
+
+    @NotNull(message = "The field 'orderItems' cannot be null")
     private List<CreateOrderItemRequestV1> orderItems;
 }

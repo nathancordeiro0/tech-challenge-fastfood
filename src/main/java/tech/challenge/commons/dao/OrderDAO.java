@@ -3,6 +3,7 @@ package tech.challenge.commons.dao;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.annotations.UuidGenerator;
 import tech.challenge.commons.enums.OrderStatus;

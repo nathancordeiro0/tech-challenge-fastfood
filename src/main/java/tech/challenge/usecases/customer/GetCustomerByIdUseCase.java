@@ -14,6 +14,6 @@ public class GetCustomerByIdUseCase {
     private final CustomerGatewayInterface customerGatewayInterface;
 
     public Customer execute(UUID id) {
-        return customerGatewayInterface.findByIdOrThrowNotFound(id);
+        return customerGatewayInterface.findById(id);
     }
 }

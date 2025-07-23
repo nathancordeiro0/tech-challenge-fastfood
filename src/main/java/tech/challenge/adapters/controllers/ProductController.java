@@ -1,5 +1,6 @@
 package tech.challenge.adapters.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -10,7 +11,10 @@ import tech.challenge.commons.dto.request.CreateProductRequestV1;
 import tech.challenge.commons.dto.request.UpdateProductRequestV1;
 import tech.challenge.commons.dto.response.ProductResponseV1;
 import tech.challenge.commons.enums.ProductCategory;
-import tech.challenge.usecases.product.*;
+import tech.challenge.usecases.product.CreateProductUserCase;
+import tech.challenge.usecases.product.DeleteProductByIdUseCase;
+import tech.challenge.usecases.product.ListProductsUseCase;
+import tech.challenge.usecases.product.UpdateProductUseCase;
 
 import java.util.List;
 import java.util.UUID;
@@ -39,7 +43,7 @@ public class ProductController {
     }
 
     @PostMapping
-    public ResponseEntity<ProductResponseV1> save(@RequestBody CreateProductRequestV1 request) {
+    public ResponseEntity<ProductResponseV1> save(@RequestBody @Valid CreateProductRequestV1 request) {
         log.debug("save request: '{}'", request);
 
         var newProduct = mapper.fromRequestToEntity(request);
@@ -61,7 +65,7 @@ public class ProductController {
     }
 
     @PutMapping
-    public ResponseEntity<Void> update(@RequestBody UpdateProductRequestV1 request) {
+    public ResponseEntity<Void> update(@RequestBody @Valid UpdateProductRequestV1 request) {
         log.debug("update request: '{}'", request);
 
         var newProduct = mapper.fromRequestToEntity(request);

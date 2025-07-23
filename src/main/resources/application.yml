@@ -29,4 +29,9 @@ server:
   tomcat:
     threads:
       max: 20
-
+springdoc:
+  swagger-ui:
+    path: /swagger-ui
+    operations-sorter: method
+  api-docs:
+    path: /v3/api-docs

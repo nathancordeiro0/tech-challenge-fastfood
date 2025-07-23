@@ -3,7 +3,6 @@ package tech.challenge.adapters.gateways;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import tech.challenge.adapters.presenters.CustomerMapper;
-import tech.challenge.commons.exception.NotFoundException;
 import tech.challenge.commons.interfaces.datasource.CustomerDataSource;
 import tech.challenge.commons.interfaces.gateways.CustomerGatewayInterface;
 import tech.challenge.entities.Customer;
@@ -18,15 +17,15 @@ public class CustomerGateway implements CustomerGatewayInterface {
     private final CustomerMapper mapper;
 
     @Override
-    public Customer findByIdOrThrowNotFound(UUID id) {
+    public Customer findById(UUID id) {
         return mapper.fromDaoToEntity(customerDataSource.findById(id)
-                .orElseThrow(() -> new NotFoundException("Customer not Found")));
+                .orElse(null));
     }
 
     @Override
-    public Customer findByCpfOrThrowNotFound(String cpf) {
+    public Customer findByCpf(String cpf) {
         return mapper.fromDaoToEntity(customerDataSource.findByCpf(cpf)
-                .orElseThrow(() -> new NotFoundException("Customer not Found")));
+                .orElse(null));
     }
 
     @Override

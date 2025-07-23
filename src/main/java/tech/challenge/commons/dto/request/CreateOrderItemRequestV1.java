@@ -1,5 +1,6 @@
 package tech.challenge.commons.dto.request;
 
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,6 +13,9 @@ import java.util.UUID;
 @Builder
 @ToString
 public class CreateOrderItemRequestV1 {
+    @NotBlank(message = "The field 'quantity' is required")
     private Integer quantity;
+
+    @NotBlank(message = "The field 'productId' cannot be null")
     private UUID productId;
 }

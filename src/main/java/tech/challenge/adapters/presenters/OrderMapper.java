@@ -9,7 +9,7 @@ import tech.challenge.commons.dto.request.CreateOrderRequestV1;
 import tech.challenge.commons.dto.response.OrderResponseV1;
 import tech.challenge.entities.Order;
 
-@Mapper(componentModel = MappingConstants.ComponentModel.SPRING,uses = OrderItemMapperHelper.class)
+@Mapper(componentModel = MappingConstants.ComponentModel.SPRING, uses = OrderItemMapperHelper.class)
 public interface OrderMapper {
 
     OrderDAO toDAO(Order entity);
@@ -17,6 +17,7 @@ public interface OrderMapper {
     Order fromDaoToEntity(OrderDAO dao);
 
     @Mapping(target = "totalPrice", expression = "java(entity.getTotalPrice())")
+    @Mapping(target = "orderPaid", constant = "true")
     OrderResponseV1 toOrderResponseV1(Order entity);
 
     @Mapping(source = "requestV1.orderItems", target = "orderItems", qualifiedByName = "orderItemsMapper")

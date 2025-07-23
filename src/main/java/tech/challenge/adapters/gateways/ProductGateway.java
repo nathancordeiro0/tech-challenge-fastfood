@@ -3,7 +3,6 @@ package tech.challenge.adapters.gateways;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import tech.challenge.adapters.presenters.ProductMapper;
-import tech.challenge.commons.exception.NotFoundException;
 import tech.challenge.commons.interfaces.datasource.ProductDataSource;
 import tech.challenge.commons.interfaces.gateways.ProductGatewayInterface;
 import tech.challenge.entities.Product;
@@ -29,13 +28,13 @@ public class ProductGateway implements ProductGatewayInterface {
     @Override
     public Product findById(UUID id) {
         return mapper.fromDaoToEntity(productDataSource.findById(id)
-                .orElseThrow(() -> new NotFoundException("Product not Found")));
+                .orElse(null));
     }
 
     @Override
     public Product findByOrderItemId(UUID id) {
         return mapper.fromDaoToEntity(productDataSource.findByOrderItemId(id)
-                .orElseThrow(() -> new NotFoundException("Product not Found")));
+                .orElse(null));
     }
 
     @Override

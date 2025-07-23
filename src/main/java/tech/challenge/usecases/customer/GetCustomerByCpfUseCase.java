@@ -12,6 +12,6 @@ public class GetCustomerByCpfUseCase {
     private final CustomerGatewayInterface customerGatewayInterface;
 
     public Customer execute(String cpf) {
-        return customerGatewayInterface.findByCpfOrThrowNotFound(cpf);
+        return customerGatewayInterface.findByCpf(cpf);
     }
 }

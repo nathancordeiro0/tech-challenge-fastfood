@@ -8,6 +8,7 @@ import tech.challenge.commons.interfaces.gateways.OrderGatewayInterface;
 import tech.challenge.entities.Order;
 
 import java.util.List;
+import java.util.UUID;
 
 @Component
 @RequiredArgsConstructor
@@ -22,6 +23,12 @@ public class OrderGateway implements OrderGatewayInterface {
                 .stream()
                 .map(mapper::fromDaoToEntity)
                 .toList();
+    }
+
+    @Override
+    public Order findById(UUID id) {
+        return mapper.fromDaoToEntity(orderDataSource.findById(id)
+                .orElse(null));
     }
 
     @Override

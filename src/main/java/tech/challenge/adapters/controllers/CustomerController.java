@@ -1,11 +1,13 @@
 package tech.challenge.adapters.controllers;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tech.challenge.adapters.presenters.CustomerMapper;
+import tech.challenge.commons.dto.request.AuthCustomerRequestV1;
 import tech.challenge.commons.dto.request.CreateCustomerRequestV1;
 import tech.challenge.commons.dto.response.CustomerResponseV1;
 import tech.challenge.usecases.customer.CreateCustomerUseCase;
@@ -36,19 +38,24 @@ public class CustomerController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @GetMapping("auth/{cpf}")
-    public ResponseEntity<CustomerResponseV1> auth(@PathVariable String cpf) {
-        log.debug("auth: '{}'", cpf);
+    @PostMapping("auth")
+    public ResponseEntity<CustomerResponseV1> auth(@RequestBody @Valid AuthCustomerRequestV1 authCustomer) {
 
-        var customer = getCustomerByCpf.execute(cpf);
+        log.debug("auth: '{}'", authCustomer);
 
-        var response = mapper.toCustomerResponseV1(customer);
+        var customer = getCustomerByCpf.execute(authCustomer.getCpf());
 
-        return ResponseEntity.status(HttpStatus.OK).body(response);
+        if (customer != null) {
+            var response = mapper.toCustomerResponseV1(customer);
+
+            return ResponseEntity.status(HttpStatus.OK).body(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
     @PostMapping
-    public ResponseEntity<CustomerResponseV1> save(@RequestBody CreateCustomerRequestV1 request) {
+    public ResponseEntity<CustomerResponseV1> save(@RequestBody @Valid CreateCustomerRequestV1 request) {
         log.debug("save: '{}'", request);
 
         var newCustomer = mapper.fromRequestToEntity(request);

@@ -1,9 +1,6 @@
 package tech.challenge.commons.dto.response;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import tech.challenge.commons.enums.OrderStatus;
 
 import java.math.BigDecimal;
@@ -14,6 +11,8 @@ import java.util.UUID;
 @Getter
 @Setter
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @ToString
 public class OrderResponseV1 {
     private UUID id;
@@ -23,4 +22,5 @@ public class OrderResponseV1 {
     private OffsetDateTime orderDate;
     private OrderStatus status;
     private BigDecimal totalPrice;
+    private Boolean orderPaid;
 }

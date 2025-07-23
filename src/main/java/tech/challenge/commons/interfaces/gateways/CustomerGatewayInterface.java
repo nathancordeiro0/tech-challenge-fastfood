@@ -5,7 +5,9 @@ import tech.challenge.entities.Customer;
 import java.util.UUID;
 
 public interface CustomerGatewayInterface {
-    Customer findByIdOrThrowNotFound(UUID id);
-    Customer findByCpfOrThrowNotFound(String cpf);
+    Customer findById(UUID id);
+
+    Customer findByCpf(String cpf);
+
     Customer save(Customer entity);
 }
