@@ -1,5 +1,5 @@
 # Etapa 1: build usando Maven e Java 21
-FROM maven:3.9.6-eclipse-temurin-21 AS build
+FROM maven:3.9.11-amazoncorretto-21-alpine AS build
 WORKDIR /app
 
 # Copia o projeto para dentro da imagem
@@ -10,7 +10,7 @@ COPY src ./src
 RUN mvn clean package -DskipTests
 
 # Etapa 2: imagem final para executar o app
-FROM eclipse-temurin:21-jdk
+FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
 # Copia o jar gerado na etapa anterior

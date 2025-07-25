@@ -23,7 +23,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: fastfood-backend
+    container_name: fastfood
     ports:
       - "8080:8080"
     env_file:
