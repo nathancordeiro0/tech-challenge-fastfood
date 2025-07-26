@@ -44,8 +44,8 @@ CREATE TABLE public.tb_order (
             ARRAY[
                 'RECEIVED'::VARCHAR,
                 'IN_PROGRESS'::VARCHAR,
-                'FINISHED'::VARCHAR,
-                'DELIVERED'::VARCHAR
+                'READY'::VARCHAR,
+                'FINISHED'::VARCHAR
                 ]::TEXT[]
             )
         ),

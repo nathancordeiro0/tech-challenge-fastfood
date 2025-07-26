@@ -6,8 +6,6 @@ import java.util.UUID;
 
 public interface CustomerGatewayInterface {
     Customer findById(UUID id);
-
     Customer findByCpf(String cpf);
-
     Customer save(Customer entity);
 }
