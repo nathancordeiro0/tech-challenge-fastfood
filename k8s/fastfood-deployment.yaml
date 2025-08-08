@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fastfood-deployment
+  labels:
+    app: fastfood-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fastfood-deployment
+  template:
+    metadata:
+      labels:
+        app: fastfood-deployment
+    spec:
+      containers:
+        - name: c-fastfood-deployment
+          image: nathancordeiro0/fastfood-api:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: DATABASE_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: fastfood-config
+                  key: DATABASE_HOST
+            - name: DATABASE_PORT
+              valueFrom:
+                configMapKeyRef:
+                  name: fastfood-config
+                  key: DATABASE_PORT
+            - name: DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: fastfood-config
+                  key: DATABASE
+            - name: DATABASE_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: fastfood-secret
+                  key: DATABASE_USER
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: fastfood-secret
+                  key: DATABASE_PASSWORD
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "250m"
+            limits:
+              memory: "1Gi"
+              cpu: "500m"

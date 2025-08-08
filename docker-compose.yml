@@ -10,7 +10,7 @@ services:
     ports:
       - ${DATABASE_PORT}:${DATABASE_PORT}
     volumes:
-      - postgres_data:/var/lib/postresql
+      - postgres_data:/var/lib/postgresql
     networks:
       - fastfood-network
     healthcheck:
