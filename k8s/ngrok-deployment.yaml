@@ -1,0 +1,65 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: ngrok-secret
+  labels:
+    app: ngrok-secret
+type: Opaque
+data:
+  NGROK_AUTHTOKEN: MnhLVWpGckZMSjhMUWNFVnJUeHUwd0k1aWI3Xzc5WjFjTnpuaFNZaURIRXVLN0xwWg==
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ngrok-deployment
+  labels:
+    app: ngrok-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ngrok-deployment
+  template:
+    metadata:
+      labels:
+        app: ngrok-deployment
+    spec:
+      containers:
+        - name: c-ngrok-deployment
+          image: ngrok/ngrok:latest
+          args:
+            - start
+            - --config
+            - /etc/ngrok/ngrok.yml
+            - --log=stdout
+            - fastfood
+          env:
+            - name: NGROK_AUTHTOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: ngrok-secret
+                  key: NGROK_AUTHTOKEN
+          volumeMounts:
+          - name: ngrok-config
+            mountPath: /etc/ngrok
+      volumes:
+        - name: ngrok-config
+          configMap:
+            name: ngrok-config
+
+---
+
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ngrok-config
+data:
+  ngrok.yml: |
+    version: 2
+    tunnels:
+      fastfood:
+        proto: http
+        addr: ingress-nginx-controller.ingress-nginx:80
+        host_header: fastfood.local.com

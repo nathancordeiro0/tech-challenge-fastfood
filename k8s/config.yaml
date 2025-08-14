@@ -8,5 +8,3 @@ data:
   DATABASE_HOST: "postgres-service"
   DATABASE: "fast_food"
   DATABASE_PORT: "5432"
-  DATABASE_USER: "fastfood"
-  DATABASE_PASSWORD: "fastfood"

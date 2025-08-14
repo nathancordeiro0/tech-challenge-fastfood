@@ -27,13 +27,13 @@ spec:
                   key: DATABASE
             - name: POSTGRES_USER
               valueFrom:
-                configMapKeyRef:
-                  name: fastfood-config
-                  key: DATABASE_USER
+                secretKeyRef:
+                  name: fastfood-secret
+                  key: DATABASE_USERNAME
             - name: POSTGRES_PASSWORD
               valueFrom:
-                configMapKeyRef:
-                  name: fastfood-config
+                secretKeyRef:
+                  name: fastfood-secret
                   key: DATABASE_PASSWORD
           volumeMounts:
             - mountPath: /var/lib/postgresql/data

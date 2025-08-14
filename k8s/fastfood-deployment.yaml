@@ -39,7 +39,7 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: fastfood-secret
-                  key: DATABASE_USER
+                  key: DATABASE_USERNAME
             - name: DATABASE_PASSWORD
               valueFrom:
                 secretKeyRef:
